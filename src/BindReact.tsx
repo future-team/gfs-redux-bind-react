@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {Component} from 'react'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware,compose } from 'redux'
 import thunk from 'redux-thunk'
@@ -14,9 +13,8 @@ interface Props {
     Module: any;
 }
 // bar reducers middleware  Module
-export default class BindReact extends Component<Props, {}> {
+export default class BindReact extends React.Component<Props, {}> {
     dispatch: any;
-
     show(dispatch, Dev){
         const { Module, children} = this.props
         return (

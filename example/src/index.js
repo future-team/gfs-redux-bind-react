@@ -1,3 +1,1 @@
-import Hello from '../../src/'
-/*const hello = new Hello()
-document.body.innerHTML = hello.getMessage()*/
+document.title = 'this is a test'
