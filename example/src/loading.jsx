@@ -1,10 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
 import extend from 'extend'
-
-@connect(state => ({
-    fetching: state.fetching
-}))
 export default class Loading extends Component {
     constructor(props,context){
         super(props,context)
@@ -66,7 +61,20 @@ export default class Loading extends Component {
             fetching: this.props.fetching,
             style: {}
         }
-        console.log('this.props.fetching', this.props)
+        console.log('Loading-props', this.props)
+    }
+    componentDidMount(){
+        this.init=true
+        this.setProcess()
+
+    }
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.fetching==0){
+            this.hide()
+        }else{
+            this.setProcess()
+        }
+        console.log('componentWillReceiveProps', nextProps)
     }
     shouldComponentUpdate(){return true}
     setProcess(){
@@ -100,18 +108,6 @@ export default class Loading extends Component {
                     }
                 })
             }.bind(this), 800)
-        }
-    }
-    componentDidMount(){
-        this.init=true
-        this.setProcess()
-
-    }
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.fetching==0){
-            this.hide()
-        }else{
-            this.setProcess()
         }
     }
     render(){

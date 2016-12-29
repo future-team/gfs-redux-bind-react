@@ -8,20 +8,7 @@ const defaultData = {
     ],
     permission: {auth: 10000000001}
 }
-export function getDetail(id){
-    return dispatch=> {
-        dispatch({
-            type: 'FETCH_START'
-        })
-        console.log('getDetail', id)
-        setTimeout(()=>{
-            dispatch({
-                type: 'GET_DETAIL',
-                data: defaultData
-            })
-        }, 500)
-    }
-}
+
 export function addLike(num){
     return dispatch=> {
         dispatch({
