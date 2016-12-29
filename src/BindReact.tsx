@@ -1,20 +1,23 @@
 import * as React from 'react'
 import { Provider } from 'react-redux'
-import { createStore, combineReducers, applyMiddleware,compose } from 'redux'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import dev from  './DevTools'
 
 interface Props {
-    LoadingBar: any;
     reducers: any;
-    middleware: any;
+    middleware: Array<any>;
     autoDevTools: boolean;
     isMock: boolean;
     Module: any;
 }
-// bar reducers middleware  Module
+
 export default class BindReact extends React.Component<Props, {}> {
     dispatch: any;
+    static defaultProps = {
+        autoDevTools: false,
+        isMock: false
+    }
     show(dispatch, Dev){
         const { Module, children} = this.props
         return (
@@ -26,35 +29,32 @@ export default class BindReact extends React.Component<Props, {}> {
         )
     }
     render() {
-        let {reducers, middleware, autoDevTools} = this.props
+        let {reducers, middleware = [], autoDevTools, isMock} = this.props
         let createStoreWithMiddleware
-        if(typeof(middleware) === 'undefined'){
-            middleware = []
-        }
-        // 并返回一个包含兼容 API 的函数。
+        // return a function contain compatible API
         let middlewareList = [
             thunk,
             ...middleware
         ]
-        if(autoDevTools && this.props.isMock ){
+        if(autoDevTools && isMock ){
             if(dev){
                 createStoreWithMiddleware = compose(
-                    //你要使用的中间件，放在前面
+                    // add middleware ahead
                     applyMiddleware(...middlewareList),
-                    //必须的！启用带有monitors（监视显示）的DevTools
+                    // start dev-tools
                     dev.instrument()
                 )
             }
         }else{
             createStoreWithMiddleware = (
-                //你要使用的中间件，放在前面
                 applyMiddleware(...middlewareList)
             )
         }
-        // 像使用 createStore() 一样使用它。
+        // just use like as createStore()
         let app = combineReducers({...reducers})
         let store = createStoreWithMiddleware(createStore)(app)
-        this.dispatch = store.dispatch
+        // add dispatch attribute to window
+        window['dispatch'] = this.dispatch = store.dispatch
         return (
             <Provider store={store}>{this.show(this.dispatch , dev)}</Provider>
         )

@@ -44,5 +44,6 @@ jscoverage_lib/
 bower_components/
 lib/
 dist/
+example/dist/
 src/**/*.js
 src/**/*.map

@@ -1,7 +1,5 @@
 'use strict';
-
 //var eagle_ui = require('../index');
-
 // To know the usage of `assert`, see: http://nodejs.org/api/assert.html
 var assert = require('assert');
 

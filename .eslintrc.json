@@ -30,6 +30,7 @@
             "error",
             "never"
         ],
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "warn",
         "react/no-deprecated": "error",

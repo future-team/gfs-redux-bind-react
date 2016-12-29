@@ -1,4 +1,3 @@
-let index = '/app';
 const defaultData = {
     num: 123,
     liker: [
@@ -11,18 +10,23 @@ const defaultData = {
 }
 export function getDetail(id){
     return dispatch=> {
+        dispatch({
+            type: 'FETCH_START'
+        })
         console.log('getDetail', id)
         setTimeout(()=>{
             dispatch({
                 type: 'GET_DETAIL',
                 data: defaultData
-            });
+            })
         }, 500)
     }
 }
-
 export function addLike(num){
     return dispatch=> {
+        dispatch({
+            type: 'FETCH_START'
+        })
         console.log('add num', num)
         defaultData.num = num
         const data = defaultData
@@ -30,13 +34,16 @@ export function addLike(num){
             dispatch({
                 type: 'ADD_LIKE',
                 data: data
-            });
+            })
         }, 500)
     }
 }
 
 export function reduceLike(num){
     return dispatch=> {
+        dispatch({
+            type: 'FETCH_START'
+        })
         console.log('reduce num', num)
         defaultData.num = num
         const data = defaultData
@@ -44,7 +51,7 @@ export function reduceLike(num){
             dispatch({
                 type: 'REDUCE_LIKE',
                 data: data
-            });
+            })
         }, 500)
     }
 }
