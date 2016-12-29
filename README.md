@@ -37,11 +37,11 @@ render(
 ## Developer
 
 ```bash
-#测试	
+# test	
 $ npm run test	
-#打包	
+# build	
 $ npm run build	
-#例子演示	
+# run demo	
 $ npm start
 ```
 
