@@ -2,49 +2,44 @@ import * as React from 'react'
 import { Provider } from 'react-redux'
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import dev from  './DevTools'
-
 interface Props {
     reducers: any;
-    middleware: Array<any>;
-    autoDevTools: boolean;
-    isMock: boolean;
-    Module: any;
+    middleware?: Array<any>;
+    devTools?: any;
+    module: any;
 }
-
 export default class BindReact extends React.Component<Props, {}> {
     dispatch: any;
-    static defaultProps = {
-        autoDevTools: false,
-        isMock: false
+    renderChildren(props) {
+        return React.Children.map(props.children, (child:any) => {
+            return React.cloneElement(child, {...props, ...props.reducers})
+        })
     }
     show(dispatch, Dev){
-        const { Module, children} = this.props
+        const Module = this.props.module
         return (
             <div>
                 <Module dispatch={dispatch} />
-                {Dev ? <Dev/> : ''}
-                {children}
+                {Dev ? <Dev /> : ''}
+                {this.renderChildren(this.props)}
             </div>
         )
     }
     render() {
-        let {reducers, middleware = [], autoDevTools, isMock} = this.props
+        let {reducers, middleware = [], devTools} = this.props
         let createStoreWithMiddleware
         // return a function contain compatible API
         let middlewareList = [
             thunk,
             ...middleware
         ]
-        if(autoDevTools && isMock ){
-            if(dev){
-                createStoreWithMiddleware = compose(
-                    // add middleware ahead
-                    applyMiddleware(...middlewareList),
-                    // start dev-tools
-                    dev.instrument()
-                )
-            }
+        if(devTools){
+            createStoreWithMiddleware = compose(
+                // add middleware ahead
+                applyMiddleware(...middlewareList),
+                // start dev-tools
+                devTools.instrument()
+            )
         }else{
             createStoreWithMiddleware = (
                 applyMiddleware(...middlewareList)
@@ -56,7 +51,7 @@ export default class BindReact extends React.Component<Props, {}> {
         // add dispatch attribute to window
         window['dispatch'] = this.dispatch = store.dispatch
         return (
-            <Provider store={store}>{this.show(this.dispatch , dev)}</Provider>
+            <Provider store={store}>{this.show(this.dispatch, devTools)}</Provider>
         )
     }
 }

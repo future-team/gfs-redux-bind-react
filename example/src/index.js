@@ -1,15 +1,15 @@
 import React from 'react'
 import {render} from 'react-dom'
-import BindReact from '../../lib/'
+import {BindReact, DevTools} from '../../lib'
 import App from './container.jsx'
 import * as reducers from './reducer'
-import Loading from './loading.jsx'
 import createLogger from 'redux-logger'
-
+import fetching from './fetching'
 const logger = createLogger()
+
 render(
-    <BindReact Module={App} reducers={reducers} isMock={false} autoDevTools={false} middleware={[logger]}>
-        <Loading/>
+    <BindReact module={App} reducers={{...reducers, fetching}} devTools={DevTools} middleware={[logger]}>
+        <h1>你好</h1>
     </BindReact>,
     document.getElementById('app')
 )

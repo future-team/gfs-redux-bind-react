@@ -1,2 +1,2 @@
-import BindReact from './BindReact'
-export default BindReact
+export {default as BindReact} from './BindReact'
+export {default as DevTools}  from './Tools'

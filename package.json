@@ -85,12 +85,13 @@
     "test": "karma start",
     "demo": "node_modules/.bin/gulp demo",
     "doc": "smartDoc ||node_modules/.bin/smartDoc",
-    "start": "npm run demo"
+    "start": "npm run demo",
+    "prepublish": " npm run build"
   },
   "bugs": {
     "url": "https://github.com/future-team/gfs-redux-bind-react/issues"
   },
   "homepage": "https://github.com/future-team/gfs-redux-bind-react",
-  "main": "dist/gfs-redux-bind-react.js",
+  "main": "lib/",
   "license": "MIT"
 }
