@@ -10,18 +10,13 @@ interface Props {
 }
 export default class BindReact extends React.Component<Props, {}> {
     dispatch: any;
-    renderChildren(props) {
-        return React.Children.map(props.children, (child:any) => {
-            return React.cloneElement(child, {...props, ...props.reducers})
-        })
-    }
     show(dispatch, Dev){
         const Module = this.props.module
         return (
             <div>
                 <Module dispatch={dispatch} />
                 {Dev ? <Dev /> : ''}
-                {this.renderChildren(this.props)}
+                {this.props.children}
             </div>
         )
     }

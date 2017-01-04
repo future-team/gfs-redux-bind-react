@@ -2,13 +2,12 @@
 bind react with redux 
 
 ## Usage
-the `BindReact` component must have properties are `Module` and `reducers`
-- `Module` is a `react` component
-- `reducers` is a describe for action
+the `BindReact` component must have properties are `module` and `reducers`
+- `module` is a `react` component
+- `reducers` is a describe for action, normally it have a `fetching` props
 
-the `isMock`, `autoDevTools`, `middleware` are optional
-- `isMock` to set the data is `testing` or not
-- `autoDevTools` to set the `DevTools` is displayed
+the `devTools`, `middleware` are optional
+- `devTools` to set the react-dev-tools
 - `middleware` add `react-redux` middleware for this component
 
 the following is full demo to describe how to use this, the detail please clone the code and run command 
@@ -17,22 +16,26 @@ $ npm run test
 ```
 
 ```javascript
-import React from 'react'
-import {render} from 'react-dom'
-import BindReact from '../../lib/'
+import React, { Component ,PropTypes} from 'react';
+import {render} from "react-dom";
+import {BindReact, DevTools} from 'gfs-redux-bind-react'
 import App from './container.jsx'
-import * as reducers from './reducer'
-import Loading from './loading.jsx'
+import * as reducers from '../reducers/index.es6';
+import {LoadingBarComponent, Connect} from 'gfs-loadingbar/lib/index.react'
+import {fetching} from 'gfs-loadingbar/lib/react/fetching'
+import FetchMiddleware from 'gfs-loadingbar/lib/react/FetchMiddleware'
 import createLogger from 'redux-logger'
-
 const logger = createLogger()
-render(
-    <BindReact Module={App} reducers={reducers} isMock={false} autoDevTools={false} middleware={[logger]}>
-        <Loading/>
-    </BindReact>,
-    document.getElementById('app')
-)
 
+//判断执行dev环境
+render(
+    <BindReact module={App} reducers={{...reducers, fetching}} middleware={[FetchMiddleware, logger]}>
+        <Connect>
+            <LoadingBarComponent />
+        </Connect>
+    </BindReact>,
+    document.getElementById('root')
+);
 ```
 ## Developer
 
