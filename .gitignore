@@ -42,7 +42,7 @@ thumbs.db
 node_modules/
 jscoverage_lib/
 bower_components/
-lib/
+lib/*
 dist/
 example/dist/
 src/**/*.js
