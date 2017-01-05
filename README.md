@@ -18,7 +18,8 @@ $ npm run test
 ```javascript
 import React, { Component ,PropTypes} from 'react';
 import {render} from "react-dom";
-import {BindReact, DevTools} from 'gfs-redux-bind-react'
+import {BindReact} from 'gfs-redux-bind-react'
+import Tools from 'gfs-redux-bind-react/lib/Tools'
 import App from './container.jsx'
 import * as reducers from '../reducers/index.es6';
 import {LoadingBarComponent, Connect} from 'gfs-loadingbar/lib/index.react'
@@ -29,7 +30,7 @@ const logger = createLogger()
 
 //判断执行dev环境
 render(
-    <BindReact module={App} reducers={{...reducers, fetching}} middleware={[FetchMiddleware, logger]}>
+    <BindReact module={App} reducers={{...reducers, fetching}} middleware={[FetchMiddleware, logger]} DevTools={Tools}>
         <Connect>
             <LoadingBarComponent />
         </Connect>
