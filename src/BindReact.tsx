@@ -18,7 +18,10 @@ class BindReact extends React.Component<Props, {}> {
     show(dispatch, Dev){
         const Module = this.props.module
         
-        if(this.props.isServerRender){
+        return (
+            <Module {...this.props.moduleProps} />
+        )
+        /*if(this.props.isServerRender){
             return (
                 <Module {...this.props.moduleProps} />
             )
@@ -30,7 +33,7 @@ class BindReact extends React.Component<Props, {}> {
                     {this.props.children}
                 </div>
             )
-        }
+        }*/
         
     }
     render() {
